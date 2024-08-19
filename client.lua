@@ -1,0 +1,1 @@
+RegisterCommand('power', MorePower, false)
