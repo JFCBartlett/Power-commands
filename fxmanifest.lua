@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-author 'Jfcbartlett'
+author 'JFCBartlett'
 version '1.0'
 description 'car power mod'
 
