@@ -1,16 +1,27 @@
-local PowerValue = 1
+function Notify(text)
+	SetNotificationTextEntry("STRING")
+	AddTextComponentString(text)
+	DrawNotification(true, false)
+end
+
+local PowerValue = 1.0
 
 function MorePower(source, args)
-	--first thing input turned from str to int
-	local Value = tonumber(args[1])
+	if args[1]then
+		--first thing input turned from str to int
+		local Value = tonumber(args[1])
 
 	-- if it is an int make powervalue that
-	if Value then
-		PowerValue = Value
-		Notify("Power Multiplied by".. args[1])
-	-- if not say it isnt a num
+		if Value then
+			PowerValue = Value*1.0
+			Notify("Power Multiplied by ".. tostring(Value))
+		-- if not say it isnt a num
+		else
+			Notify("Value is not a number")
+		end
 	else
-		Notify("Value is not a number")
+		Notify("Power being defaulted to 1")
+		PowerValue = 1.0
 	end
 end
 
@@ -19,10 +30,10 @@ Citizen.CreateThread(function()
 		--get player who called function
 		local PlayerPed = GetPlayerPed(-1)
 		--get car they are in
-		local Vehicle = GetVehiclePedIsIn(PlayerPed, false)
+		local Vehicle = GetVehiclePedIsIn(PlayerPed, true)
 
 		--apply power mult
-		if Vehicle and IsPedInAnyVehicle(PlayerPed, false) then
+		if Vehicle and IsPedInAnyVehicle(PlayerPed, true) then
 			--set the power mult to powervalue
 			SetVehicleCheatPowerIncrease(Vehicle, PowerValue)
 		end
@@ -31,10 +42,3 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 	end
 end)
-
-
-function Notify(text)
-	SetNotificationTextEntry("STRING")
-	AddTextComponentString(text)
-	DrawNotification(true, false)
-end
